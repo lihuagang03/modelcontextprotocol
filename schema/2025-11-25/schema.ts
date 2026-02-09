@@ -2,6 +2,7 @@
 
 /**
  * Refers to any valid JSON-RPC object that can be decoded off the wire, or encoded to be sent.
+ * 指任何有效 JSON-RPC 对象，可以从网络解码或编码以发送的。
  *
  * @category JSON-RPC
  */
@@ -17,6 +18,7 @@ export const JSONRPC_VERSION = "2.0";
 
 /**
  * A progress token, used to associate progress notifications with the original request.
+ * 进度令牌，用于将进度通知与原始请求关联。
  *
  * @category Common Types
  */
@@ -24,6 +26,7 @@ export type ProgressToken = string | number;
 
 /**
  * An opaque token used to represent a cursor for pagination.
+ * 用于表示分页光标的不透明令牌。
  *
  * @category Common Types
  */
@@ -104,20 +107,24 @@ export interface Result {
 export interface Error {
   /**
    * The error type that occurred.
+   * 发生的错误类型。
    */
   code: number;
   /**
    * A short description of the error. The message SHOULD be limited to a concise single sentence.
+   * 错误的简短描述。消息应限制为简明的单句。
    */
   message: string;
   /**
    * Additional information about the error. The value of this member is defined by the sender (e.g. detailed error information, nested errors etc.).
+   * 关于错误的附加信息。此成员的值由发送方定义（例如详细的错误信息、嵌套错误等）。
    */
   data?: unknown;
 }
 
 /**
  * A uniquely identifying ID for a request in JSON-RPC.
+ * JSON-RPC 中请求的唯一标识 ID。
  *
  * @category Common Types
  */
@@ -125,6 +132,7 @@ export type RequestId = string | number;
 
 /**
  * A request that expects a response.
+ * 一个期望收到响应的请求。
  *
  * @category JSON-RPC
  */
@@ -135,6 +143,7 @@ export interface JSONRPCRequest extends Request {
 
 /**
  * A notification which does not expect a response.
+ * 无需回复的通知。
  *
  * @category JSON-RPC
  */
@@ -144,6 +153,7 @@ export interface JSONRPCNotification extends Notification {
 
 /**
  * A successful (non-error) response to a request.
+ * 对请求的成功（非错误）响应。
  *
  * @category JSON-RPC
  */
@@ -155,6 +165,7 @@ export interface JSONRPCResultResponse {
 
 /**
  * A response to a request that indicates an error occurred.
+ * 对请求的响应，表示发生了错误。
  *
  * @category JSON-RPC
  */
@@ -166,6 +177,7 @@ export interface JSONRPCErrorResponse {
 
 /**
  * A response to a request, containing either the result or error.
+ * 对请求的响应，包含结果或错误。
  *
  * @category JSON-RPC
  */
@@ -203,6 +215,7 @@ export interface URLElicitationRequiredError extends Omit<
 /* Empty result */
 /**
  * A response that indicates success but carries no data.
+ * 一个表示成功但不包含数据的响应。
  *
  * @category Common Types
  */
@@ -232,6 +245,7 @@ export interface CancelledNotificationParams extends NotificationParams {
 
 /**
  * This notification can be sent by either side to indicate that it is cancelling a previously-issued request.
+ * 此通知可以由任一方发送，以表明其正在取消先前发出的请求。
  *
  * The request SHOULD still be in-flight, but due to communication latency, it is always possible that this notification MAY arrive after the request has already finished.
  *
@@ -265,6 +279,7 @@ export interface InitializeRequestParams extends RequestParams {
 
 /**
  * This request is sent from the client to the server when it first connects, asking it to begin initialization.
+ * 当客户端首次连接时，会向服务器发送此请求，要求它开始初始化。
  *
  * @category `initialize`
  */
@@ -288,6 +303,7 @@ export interface InitializeResult extends Result {
 
   /**
    * Instructions describing how to use the server and its features.
+   * 说明如何使用服务器及其功能的指南。
    *
    * This can be used by clients to improve the LLM's understanding of available tools, resources, etc. It can be thought of like a "hint" to the model. For example, this information MAY be added to the system prompt.
    */
@@ -296,6 +312,7 @@ export interface InitializeResult extends Result {
 
 /**
  * This notification is sent from the client to the server after initialization has finished.
+ * 此通知在初始化完成后由客户端发送到服务器。
  *
  * @category `notifications/initialized`
  */
@@ -530,12 +547,15 @@ export interface Icons {
 export interface BaseMetadata {
   /**
    * Intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn't present).
+   * 旨在用于编程或逻辑用途，但在过去的规范中被用作显示名称或备用（如果标题不存在）。
    */
   name: string;
 
   /**
    * Intended for UI and end-user contexts — optimized to be human-readable and easily understood,
    * even by those unfamiliar with domain-specific terminology.
+   * 用于用户界面和终端用户场景——优化为易于阅读和理解，
+   * 即使是不熟悉特定领域术语的人也能轻松理解。
    *
    * If not provided, the name should be used for display (except for Tool,
    * where `annotations.title` should be given precedence over using `name`,
@@ -572,6 +592,7 @@ export interface Implementation extends BaseMetadata, Icons {
 /* Ping */
 /**
  * A ping, issued by either the server or the client, to check that the other party is still alive. The receiver must promptly respond, or else may be disconnected.
+ * 由服务器或客户端发出的ping，用于检查对方是否仍然在线。接收方必须及时响应，否则可能会被断开连接。
  *
  * @category `ping`
  */
@@ -612,6 +633,7 @@ export interface ProgressNotificationParams extends NotificationParams {
 
 /**
  * An out-of-band notification used to inform the receiver of a progress update for a long-running request.
+ * 一种带外通知，用于告知接收方有关长时间运行请求的进度更新。
  *
  * @category `notifications/progress`
  */
@@ -1018,6 +1040,7 @@ export interface PromptArgument extends BaseMetadata {
 
 /**
  * The sender or recipient of messages and data in a conversation.
+ * 对话中消息和数据的发送者或接收者。
  *
  * @category Common Types
  */
@@ -1082,6 +1105,7 @@ export interface PromptListChangedNotification extends JSONRPCNotification {
 /* Tools */
 /**
  * Sent from the client to request a list of tools the server has.
+ * 从客户端发送请求以获取服务器拥有的工具列表。
  *
  * @category `tools/list`
  */
@@ -1091,6 +1115,7 @@ export interface ListToolsRequest extends PaginatedRequest {
 
 /**
  * The server's response to a tools/list request from the client.
+ * 服务器对客户端 tools/list 请求的响应。
  *
  * @category `tools/list`
  */
@@ -1100,6 +1125,7 @@ export interface ListToolsResult extends PaginatedResult {
 
 /**
  * The server's response to a tool call.
+ * 服务器对工具调用的响应。
  *
  * @category `tools/call`
  */
@@ -1111,11 +1137,13 @@ export interface CallToolResult extends Result {
 
   /**
    * An optional JSON object that represents the structured result of the tool call.
+   * 一个可选的 JSON 对象，用于表示工具调用的结构化结果。
    */
   structuredContent?: { [key: string]: unknown };
 
   /**
    * Whether the tool call ended in an error.
+   * 工具调用是否以错误结束。
    *
    * If not set, this is assumed to be false (the call was successful).
    *
@@ -1139,16 +1167,19 @@ export interface CallToolResult extends Result {
 export interface CallToolRequestParams extends TaskAugmentedRequestParams {
   /**
    * The name of the tool.
+   * 工具的名称。
    */
   name: string;
   /**
    * Arguments to use for the tool call.
+   * 用于工具调用的参数。
    */
   arguments?: { [key: string]: unknown };
 }
 
 /**
  * Used by the client to invoke a tool provided by the server.
+ * 客户端用来调用服务器提供的工具。
  *
  * @category `tools/call`
  */
@@ -1225,6 +1256,7 @@ export interface ToolAnnotations {
 
 /**
  * Execution-related properties for a tool.
+ * 此工具的执行相关属性。
  *
  * @category `tools/list`
  */
@@ -1245,12 +1277,14 @@ export interface ToolExecution {
 
 /**
  * Definition for a tool the client can call.
+ * 工具的定义，客户端可以调用的。
  *
  * @category `tools/list`
  */
 export interface Tool extends BaseMetadata, Icons {
   /**
    * A human-readable description of the tool.
+   * 工具的可读性描述。
    *
    * This can be used by clients to improve the LLM's understanding of available tools. It can be thought of like a "hint" to the model.
    */
@@ -1258,6 +1292,7 @@ export interface Tool extends BaseMetadata, Icons {
 
   /**
    * A JSON Schema object defining the expected parameters for the tool.
+   * 一个 JSON 模式对象，用于定义该工具的预期参数。
    */
   inputSchema: {
     $schema?: string;
@@ -1268,12 +1303,14 @@ export interface Tool extends BaseMetadata, Icons {
 
   /**
    * Execution-related properties for this tool.
+   * 此工具的执行相关属性。
    */
   execution?: ToolExecution;
 
   /**
    * An optional JSON Schema object defining the structure of the tool's output returned in
    * the structuredContent field of a CallToolResult.
+   * 一个可选的 JSON Schema 对象，用于定义在 CallToolResult 的 structuredContent 字段中返回的工具输出的结构。
    *
    * Defaults to JSON Schema 2020-12 when no explicit $schema is provided.
    * Currently restricted to type: "object" at the root level.
@@ -1624,6 +1661,7 @@ export interface CreateMessageRequestParams extends TaskAugmentedRequestParams {
 
 /**
  * Controls tool selection behavior for sampling requests.
+ * 控制采样请求的工具选择行为。
  *
  * @category `sampling/createMessage`
  */
@@ -1833,6 +1871,7 @@ export interface AudioContent {
 
 /**
  * A request from the assistant to call a tool.
+ * 助手发出的请求以调用工具。
  *
  * @category `sampling/createMessage`
  */
@@ -1867,6 +1906,7 @@ export interface ToolUseContent {
 
 /**
  * The result of a tool use, provided by the user back to the assistant.
+ * 工具使用的结果，由用户提供给助手。
  *
  * @category `sampling/createMessage`
  */
@@ -2031,6 +2071,7 @@ export interface CompleteRequestParams extends RequestParams {
 
 /**
  * A request from the client to the server, to ask for completion options.
+ * 客户端向服务器发送请求，以获取完成选项。
  *
  * @category `completion/complete`
  */
@@ -2041,6 +2082,7 @@ export interface CompleteRequest extends JSONRPCRequest {
 
 /**
  * The server's response to a completion/complete request
+ * 服务器对完成请求的响应
  *
  * @category `completion/complete`
  */
@@ -2063,6 +2105,7 @@ export interface CompleteResult extends Result {
 
 /**
  * A reference to a resource or resource template definition.
+ * 对资源或资源模板定义的引用。
  *
  * @category `completion/complete`
  */
@@ -2078,6 +2121,7 @@ export interface ResourceTemplateReference {
 
 /**
  * Identifies a prompt.
+ * 识别提示。
  *
  * @category `completion/complete`
  */
@@ -2295,6 +2339,7 @@ export interface UntitledSingleSelectEnumSchema {
   description?: string;
   /**
    * Array of enum values to choose from.
+   * 可供选择的枚举值数组。
    */
   enum: string[];
   /**
