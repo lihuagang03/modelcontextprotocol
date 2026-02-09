@@ -312,12 +312,15 @@ export interface ServerCapabilities {
 export interface BaseMetadata {
   /**
    * Intended for programmatic or logical use, but used as a display name in past specs or fallback (if title isn't present).
+   * 旨在用于编程或逻辑用途，但在过去的规范中被用作显示名称或备用（如果标题不存在）。
    */
   name: string;
 
   /**
    * Intended for UI and end-user contexts — optimized to be human-readable and easily understood,
    * even by those unfamiliar with domain-specific terminology.
+   * 用于用户界面和终端用户场景——优化为易于阅读和理解，
+   * 即使是不熟悉特定领域术语的人也能轻松理解。
    *
    * If not provided, the name should be used for display (except for Tool,
    * where `annotations.title` should be given precedence over using `name`,
@@ -798,6 +801,7 @@ export interface PromptListChangedNotification extends Notification {
 /* Tools */
 /**
  * Sent from the client to request a list of tools the server has.
+ * 从客户端发送请求以获取服务器拥有的工具列表。
  *
  * @category `tools/list`
  */
@@ -807,6 +811,7 @@ export interface ListToolsRequest extends PaginatedRequest {
 
 /**
  * The server's response to a tools/list request from the client.
+ * 服务器对客户端 tools/list 请求的响应。
  *
  * @category `tools/list`
  */
@@ -816,6 +821,7 @@ export interface ListToolsResult extends PaginatedResult {
 
 /**
  * The server's response to a tool call.
+ * 服务器对工具调用的响应。
  *
  * @category `tools/call`
  */
@@ -849,6 +855,7 @@ export interface CallToolResult extends Result {
 
 /**
  * Used by the client to invoke a tool provided by the server.
+ * 客户端用来调用服务器提供的工具。
  *
  * @category `tools/call`
  */
@@ -927,12 +934,14 @@ export interface ToolAnnotations {
 
 /**
  * Definition for a tool the client can call.
+ * 工具的定义，客户端可以调用的。
  *
  * @category `tools/list`
  */
 export interface Tool extends BaseMetadata {
   /**
    * A human-readable description of the tool.
+   * 工具的可读性描述。
    *
    * This can be used by clients to improve the LLM's understanding of available tools. It can be thought of like a "hint" to the model.
    */
@@ -940,6 +949,7 @@ export interface Tool extends BaseMetadata {
 
   /**
    * A JSON Schema object defining the expected parameters for the tool.
+   * 一个 JSON 模式对象，用于定义该工具的预期参数。
    */
   inputSchema: {
     type: "object";
@@ -950,6 +960,7 @@ export interface Tool extends BaseMetadata {
   /**
    * An optional JSON Schema object defining the structure of the tool's output returned in
    * the structuredContent field of a CallToolResult.
+   * 一个可选的 JSON Schema 对象，用于定义在 CallToolResult 的 structuredContent 字段中返回的工具输出的结构。
    */
   outputSchema?: {
     type: "object";
